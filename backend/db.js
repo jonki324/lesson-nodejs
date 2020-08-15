@@ -1,22 +1,22 @@
-const { promisify } = require('util')
-const redis = require('redis')
-const client = redis.createClient();
+const Promise = require('bluebird')
+const redis = Promise.promisifyAll(require('redis'))
 
-client.on('connect', () => {
-  console.log('Redis Connect')
-})
-client.on('error', err => {
-  console.error(`Redis Error: ${err}`)
-})
-client.on('end', () => {
-  console.log('Redis End')
-})
+function getConnection() {
+  const client = redis.createClient();
 
-const getAsync = promisify(client.get).bind(client)
-const setAsync = promisify(client.set).bind(client)
+  client.on('connect', () => {
+    console.log('Redis Connect')
+  })
+  client.on('error', err => {
+    console.error(`Redis Error: ${err}`)
+  })
+  client.on('end', () => {
+    console.log('Redis End')
+  })
+  
+  return client
+}
 
 module.exports = {
-  client,
-  getAsync,
-  setAsync
+  getConnection
 }

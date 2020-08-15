@@ -1,7 +1,8 @@
-const { client, getAsync, setAsync } = require('./db')
+const { getConnection } = require('./db')
 
-function setValue(req, res) {
-  setAsync('hello', 'Hello Redis').then(() => {
+async function setValue(req, res) {
+  const client = await getConnection()
+  await client.setAsync('hello', 'Hello Redis').then(() => {
     res.send(`SET OK`)
   }).catch((err) => {
     res.send(`SET NG ${err}`)
@@ -10,8 +11,9 @@ function setValue(req, res) {
   })
 }
 
-function getValue(req, res) {
-  getAsync('hello').then(result => {
+async function getValue(req, res) {
+  const client = await getConnection()
+  await client.getAsync('hello').then(result => {
     res.send(`GET OK ${result}`)
   }).catch((err) => {
     res.send(`SET NG ${err}`)
