@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --silent"
   },
   "author": "",
   "license": "ISC",
@@ -14,5 +14,12 @@
     "nodemon": "^2.0.4",
     "redis": "^3.0.2",
     "uuid": "^8.3.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^26.4.2",
+    "superagent": "^6.0.0",
+    "supertest": "^4.0.2"
   }
 }
